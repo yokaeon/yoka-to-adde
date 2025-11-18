@@ -22,6 +22,15 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe all animated elements
 document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('scroll', () => {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    if (window.scrollY > 10) {
+        hero.classList.add('invisible-now');
+    } else {
+        hero.classList.remove('invisible-now');
+    });
     // Observe idea cards
     const ideaCards = document.querySelectorAll('.idea-card');
     ideaCards.forEach(card => {
