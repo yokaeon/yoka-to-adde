@@ -1,16 +1,32 @@
 // Smooth scrolling function
+let isManualScroll = false;
+
 function scrollToSection(sectionId) {
+    isManualScroll = true; // Disable auto-hide temporarily
     const element = document.getElementById(sectionId);
     if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        element.scrollIntoView({ behavior: 'smooth' });
+
+        // Wait for smooth scroll to finish
+        setTimeout(() => {
+            isManualScroll = false;
+        }, 700);
     }
 }
 
-// Intersection Observer for scroll animations
-const observerOptions = {
-    threshold: 0,
-    rootMargin: '0px 0px -250px 0px'
-};
+window.addEventListener('scroll', () => {
+    if (isManualScroll) return; // Don't auto-hide during manual scroll
+
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    if (window.scrollY > 10) {
+        hero.classList.add('invisible-now');
+    } else {
+        hero.classList.remove('invisible-now');
+    }
+});
+
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
