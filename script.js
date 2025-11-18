@@ -14,7 +14,7 @@ function scrollToSection(sectionId) {
         // Re-enable auto fade after scroll finishes
         setTimeout(() => {
             isManualScroll = false;
-        }, 800);
+        }, 1500);
     }
 }
 
