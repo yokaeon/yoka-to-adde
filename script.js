@@ -1,32 +1,53 @@
-// Smooth scrolling function
+// -----------------------------------
+// Smooth scroll + Hero fade controller
+// -----------------------------------
+
 let isManualScroll = false;
 
+// Smooth scrolling function
 function scrollToSection(sectionId) {
-    isManualScroll = true; // Disable auto-hide temporarily
+    isManualScroll = true;
     const element = document.getElementById(sectionId);
     if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
 
-        // Wait for smooth scroll to finish
+        // Re-enable auto fade after scroll finishes
         setTimeout(() => {
             isManualScroll = false;
-        }, 700);
+        }, 800);
     }
 }
 
-window.addEventListener('scroll', () => {
-    if (isManualScroll) return; // Don't auto-hide during manual scroll
+// Fade hero on scroll (with delay option)
+const hero = document.querySelector('.hero');
+let heroHidden = false;
 
-    const hero = document.querySelector('.hero');
-    if (!hero) return;
+// Delay before auto-fade starts
+const HERO_FADE_DELAY = 1500; // in ms
 
-    if (window.scrollY > 10) {
-        hero.classList.add('invisible-now');
-    } else {
-        hero.classList.remove('invisible-now');
-    }
-});
+setTimeout(() => {
+    window.addEventListener('scroll', () => {
+        if (isManualScroll) return; // avoid interference
 
+        if (window.scrollY > 10 && !heroHidden) {
+            hero.classList.add('invisible-now');
+            heroHidden = true;
+        }
+        if (window.scrollY <= 10 && heroHidden) {
+            hero.classList.remove('invisible-now');
+            heroHidden = false;
+        }
+    });
+}, HERO_FADE_DELAY);
+
+// -----------------------------------
+// Intersection Observer
+// -----------------------------------
+
+const observerOptions = {
+    threshold: 0,
+    rootMargin: '0px 0px -250px 0px'
+};
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
