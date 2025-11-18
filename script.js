@@ -25,22 +25,43 @@ let heroHidden = false;
 // Delay before auto-fade starts
 const HERO_FADE_DELAY = 1500; // in ms
 
+// delayed registration but safe: ensure element exists and use passive scroll
 setTimeout(() => {
+    const hero = document.querySelector('.hero');
+    if (!hero) {
+        console.warn('Hero element not found — hero fade disabled');
+        return;
+    }
+
+    // debug: show that we attached the listener
+    console.info('Hero fade listener attached. Delay:', HERO_FADE_DELAY, 'ms');
+
     window.addEventListener('scroll', () => {
-    if (isManualScroll) return;
+        if (isManualScroll) {
+            // skip auto-hide while programmatic/user-initiated smooth scroll is running
+            return;
+        }
 
-    // Fade out only after scrolling a meaningful distance
-    if (window.scrollY > 250 && !heroHidden) {
-        hero.classList.add('invisible-now');
-        heroHidden = true;
-    }
+        const y = window.scrollY || window.pageYOffset;
+        // debug - uncomment if you want runtime logs
+        // console.log('scrollY =', y, 'heroHidden =', heroHidden);
 
-    // Fade back in when user scrolls near top again
-    if (window.scrollY <= 200 && heroHidden) {
-        hero.classList.remove('invisible-now');
-        heroHidden = false;
-    }
-});
+        // Fade out only after scrolling a meaningful distance
+        if (y > 250 && !heroHidden) {
+            hero.classList.add('invisible-now');
+            heroHidden = true;
+            // debug
+            // console.info('Hero hidden at', y);
+        }
+
+        // Fade back in when user scrolls near top again
+        else if (y <= 200 && heroHidden) {
+            hero.classList.remove('invisible-now');
+            heroHidden = false;
+            // debug
+            // console.info('Hero shown at', y);
+        }
+    }, { passive: true });
 }, HERO_FADE_DELAY);
 
 // -----------------------------------
