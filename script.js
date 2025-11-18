@@ -47,11 +47,11 @@ setTimeout(() => {
         // console.log('scrollY =', y, 'heroHidden =', heroHidden);
 
         // Fade out only after scrolling a meaningful distance
-        if (y > 900 && !heroHidden) {
+        if (y > 1500 && !heroHidden) {
         hero.classList.add('invisible-now');
         heroHidden = true;
         }
-        else if (y <= 600 && heroHidden) {
+        else if (y <= 1500 && heroHidden) {
         hero.classList.remove('invisible-now');
         heroHidden = false;
         }
