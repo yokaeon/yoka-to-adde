@@ -8,8 +8,8 @@ function scrollToSection(sectionId) {
 
 // Intersection Observer for scroll animations
 const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -20px 0px'
+    threshold: 0.3,
+    rootMargin: '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
