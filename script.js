@@ -23,7 +23,7 @@ const hero = document.querySelector('.hero');
 let heroHidden = false;
 
 // Delay before auto-fade starts
-const HERO_FADE_DELAY = 1500; // in ms
+const HERO_FADE_DELAY = 700; // in ms
 
 // delayed registration but safe: ensure element exists and use passive scroll
 setTimeout(() => {
@@ -45,7 +45,6 @@ setTimeout(() => {
         const y = window.scrollY || window.pageYOffset;
         // debug - uncomment if you want runtime logs
         // console.log('scrollY =', y, 'heroHidden =', heroHidden);
-
         // Fade out only after scrolling a meaningful distance
         if (y > 1500 && !heroHidden) {
         hero.classList.add('invisible-now');
