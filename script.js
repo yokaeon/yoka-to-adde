@@ -29,11 +29,11 @@ setTimeout(() => {
     window.addEventListener('scroll', () => {
         if (isManualScroll) return; // avoid interference
 
-        if (window.scrollY > 10 && !heroHidden) {
+        if (window.scrollY > 300 && !heroHidden) {
             hero.classList.add('invisible-now');
             heroHidden = true;
         }
-        if (window.scrollY <= 10 && heroHidden) {
+        if (window.scrollY <= 300 && heroHidden) {
             hero.classList.remove('invisible-now');
             heroHidden = false;
         }
