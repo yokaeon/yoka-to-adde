@@ -27,17 +27,20 @@ const HERO_FADE_DELAY = 1500; // in ms
 
 setTimeout(() => {
     window.addEventListener('scroll', () => {
-        if (isManualScroll) return; // avoid interference
+    if (isManualScroll) return;
 
-        if (window.scrollY > 300 && !heroHidden) {
-            hero.classList.add('invisible-now');
-            heroHidden = true;
-        }
-        if (window.scrollY <= 300 && heroHidden) {
-            hero.classList.remove('invisible-now');
-            heroHidden = false;
-        }
-    });
+    // Fade out only after scrolling a meaningful distance
+    if (window.scrollY > 250 && !heroHidden) {
+        hero.classList.add('invisible-now');
+        heroHidden = true;
+    }
+
+    // Fade back in when user scrolls near top again
+    if (window.scrollY <= 200 && heroHidden) {
+        hero.classList.remove('invisible-now');
+        heroHidden = false;
+    }
+});
 }, HERO_FADE_DELAY);
 
 // -----------------------------------
