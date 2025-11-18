@@ -615,3 +615,15 @@ section {
         padding: 60px 0;
     }
 }
+/* Instantly hide hero on scroll */
+.hero.invisible-now {
+    opacity: 0 !important;
+    pointer-events: none;
+    transition: opacity 0.25s ease-in !important;
+    animation: none !important;
+}
+
+.hero.invisible-now::before {
+    animation: none !important;
+    opacity: 0 !important;
+}
